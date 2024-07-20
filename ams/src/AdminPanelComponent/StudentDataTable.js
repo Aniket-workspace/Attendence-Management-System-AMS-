@@ -3,30 +3,22 @@ import axios from "axios";
 import {
   Container,
   Grid,
-  TextField,
   Box,
   FormControl,
-  Button,
-  Snackbar,
-  Alert,
   Table,
-  TableContainer,
   TableHead,
   TableRow,
   TableCell,
   TableBody,
-  InputLabel,
   Select,
   MenuItem,
-  Card,
-  CardContent,
-  Divider,
+  Button,
 } from "@mui/material";
 import { Avatar, CssBaseline, Typography } from "@mui/material";
 
 // npm install react-to-print
 
-import { useReactToPrint } from "react-to-print"; // To save table data in pdf form
+// import { useReactToPrint } from "react-to-print"; // To save table data in pdf form
 
 const StudentDataTable = () => {
   //Shivanjali made this changes
@@ -58,10 +50,36 @@ const StudentDataTable = () => {
 
     batches();
     fetchStudents();
-  }, []);
+  },[]);
 
   const handleBatchChange = (e) => {
     setSelectedBatch(e.target.value);
+  };
+
+  const deleteStudent = async (id) => {
+    try {
+      let result = await fetch(`http://localhost:5001/delete-student/${id}`, {
+        method: "DELETE",
+      });
+      result = await result.json();
+      if (result) {
+        alert("Student Deleted");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
+    try {
+      let result = await fetch(`http://localhost:5001/delete-user/${id}`, {
+        method: "DELETE",
+      });
+      result = await result.json();
+      if (result) {
+        alert("Account Deleted");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const filteredStudents = selectedBatch
@@ -70,17 +88,18 @@ const StudentDataTable = () => {
 
   // Shivanjali Made this
 
-  const generatePDF = useReactToPrint({
-    content: () => componentPDF.current,
-    documentTitle: "StudentDataTable",
-    onAfterPrint: () => alert("Data saved in PDF"),
-  });
+  // const generatePDF = useReactToPrint({
+  //   content: () => componentPDF.current,
+  //   documentTitle: "StudentDataTable",
+  //   onAfterPrint: () => alert("Data saved in PDF"),
+  // });
 
   return (
     <Container component={"main"} maxWidth="lg">
       <div ref={componentPDF}>
         <CssBaseline />
         <Grid
+          mt={3}
           md={12}
           sx={{
             display: "flex",
@@ -90,7 +109,7 @@ const StudentDataTable = () => {
             padding: "25px",
             borderRadius: "15px",
             boxShadow: "5px 5px 8px #cecece",
-            maxHeight: "550px",
+            maxHeight: "450px",
             overflowY: "scroll",
           }}
         >
@@ -118,7 +137,7 @@ const StudentDataTable = () => {
               </Grid>
 
               <Grid item md={12} lg={12} xs={12}>
-                <Table>
+                <Table stickyHeader>
                   <TableHead>
                     <TableRow>
                       <TableCell align="center">
@@ -130,6 +149,9 @@ const StudentDataTable = () => {
                       <TableCell align="center">
                         <b>Batch</b>
                       </TableCell>
+                      <TableCell align="center">
+                        <b>Action</b>
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -138,6 +160,16 @@ const StudentDataTable = () => {
                         <TableCell align="center">{student.id}</TableCell>
                         <TableCell align="center">{student.name}</TableCell>
                         <TableCell align="center">{student.batch}</TableCell>
+                        <TableCell align="center">
+                          <Button
+                            size="small"
+                            color="error"
+                            variant="outlined"
+                            onClick={()=>deleteStudent(student.id)}
+                          >
+                            Delete
+                          </Button>
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>

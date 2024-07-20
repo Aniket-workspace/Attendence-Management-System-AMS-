@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   AppBar,
   Avatar,
@@ -12,21 +12,19 @@ import {
   Typography,
 } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
-import FactCheckIcon from "@mui/icons-material/FactCheck";
-import AssessmentIcon from "@mui/icons-material/Assessment";
 import StudentReport from "./StudentReport";
 import MenuIcon from "@mui/icons-material/Menu";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import ShowStudentAttendance from "./ShowStudentAttendance";
 import SchoolIcon from "@mui/icons-material/School";
 import PieChartIcon from "@mui/icons-material/PieChart";
-import TableChartIcon from "@mui/icons-material/TableChart";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import YouTubeIcon from "@mui/icons-material/YouTube";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
 
 const StudentPanelIndex = () => {
   const auth = localStorage.getItem("user");
@@ -132,10 +130,9 @@ const StudentPanelIndex = () => {
             <Typography color={"white"} sx={{ marginRight: "15px" }}>
               {JSON.parse(auth).name}
             </Typography>
-            <Avatar
-              alt="Teacher"
-              src="https://images.unsplash.com/photo-1505033575518-a36ea2ef75ae?q=80&w=1886&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            />
+            <Avatar sx={{backgroundColor:"white"}}>
+              <AccountCircleIcon sx={{color:"#607d8b"}} fontSize="large"/>
+            </Avatar>
           </IconButton>
         </Toolbar>
       </AppBar>

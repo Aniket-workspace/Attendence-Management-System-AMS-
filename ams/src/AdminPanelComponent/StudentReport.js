@@ -27,7 +27,7 @@ import {
 } from "@mui/material";
 import { PieChart } from "@mui/x-charts";
 import PieChartIcon from "@mui/icons-material/PieChart";
-import { pieArcLabelClasses } from "@mui/x-charts"; // Correct import
+import { pieArcLabelClasses } from "@mui/x-charts"; 
 import { useReactToPrint } from "react-to-print";
 
 const StudentReport = () => {
@@ -127,6 +127,8 @@ const StudentReport = () => {
             backgroundColor: "white",
             padding: "25px",
             borderRadius: "15px",
+            minHeight: "450px",
+
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "primary.main", marginBottom: "15px" }}>

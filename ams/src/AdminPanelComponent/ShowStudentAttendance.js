@@ -14,7 +14,6 @@ import {
   Avatar,
   Typography,
   TableContainer,
-  Paper,
   Table,
   TableHead,
   TableRow,
@@ -23,7 +22,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import SchoolIcon from '@mui/icons-material/School';
-import { jsPDF } from 'jspdf';
+// import { jsPDF } from 'jspdf';
 
 const ShowStudentAttendance = () => {
   const [studentId, setStudentId] = useState('');
@@ -34,6 +33,13 @@ const ShowStudentAttendance = () => {
   const componentPDF = useRef();
 
   const handleFetchAttendance = async () => {
+
+    if (!studentId || !date) {
+      setError("Please select both batch and date.");
+      setOpen(true);
+      return;
+    }
+
     try {
       const response = await axios.get(
         `http://localhost:5001/stud-attendance/${studentId}/${date}`
@@ -41,7 +47,7 @@ const ShowStudentAttendance = () => {
       setAttendanceDetails(response.data);
       setError('');
     } catch (error) {
-      setError('No attendance record found for the given date and student batch.');
+      setError('No attendance record found for the given date and student id.');
       setAttendanceDetails(null);
       setOpen(true);
     }
@@ -85,6 +91,8 @@ const ShowStudentAttendance = () => {
               padding: "25px",
               borderRadius: "15px",
               boxShadow: "5px 5px 8px #cecece",
+              minHeight: "450px",
+
             }}
           >
             {/* icon */}

@@ -20,10 +20,12 @@ import {
   TableRow,
   TableCell,
   TableBody,
+  Paper,
 } from "@mui/material";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import axios from "axios";
 import { useReactToPrint } from "react-to-print";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
 const ShowBatchAttendance = () => {
   const [batch, setBatch] = useState("");
@@ -35,17 +37,17 @@ const ShowBatchAttendance = () => {
   const componentPDF = useRef();
 
   useEffect(() => {
-    const batches = async () => {
+    const fetchBatches = async () => {
       try {
         const batchData = await fetch("http://localhost:5001/batch");
         const data = await batchData.json();
         setBatches(data);
       } catch (error) {
-        console.error("Error fetching students:", error);
+        console.error("Error fetching batches:", error);
       }
     };
 
-    batches()
+    fetchBatches();
   }, []);
 
   const handleClose = () => {
@@ -54,6 +56,13 @@ const ShowBatchAttendance = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!batch || !month) {
+      setError("Please select both batch and month.");
+      setOpen(true);
+      return;
+    }
+    
     try {
       const response = await axios.get(
         `http://localhost:5001/attendance-summary/${month}/${batch}`
@@ -85,7 +94,7 @@ const ShowBatchAttendance = () => {
             padding: "25px",
             borderRadius: "15px",
             boxShadow: "5px 5px 8px #cecece",
-            minHeight: "400px",
+            minHeight: "450px",
             overflow: "auto",
           }}
         >
@@ -100,7 +109,7 @@ const ShowBatchAttendance = () => {
           <Box
             onSubmit={handleSubmit}
             component="form"
-            sx={{ mt: 3, display: "flex", justifyContent: "center" }}
+            sx={{ mt: 3, display: "flex", justifyContent: "center", width: '100%' }}
           >
             <Grid container spacing={2}>
               <Grid item xs={12} md={6}>
@@ -113,7 +122,7 @@ const ShowBatchAttendance = () => {
                     required
                   >
                     {batches.map((item) => (
-                      <MenuItem value={item.batch}>{item.batch}</MenuItem>
+                      <MenuItem key={item.batch} value={item.batch}>{item.batch}</MenuItem>
                     ))}
                   </Select>
                 </FormControl>
@@ -164,64 +173,52 @@ const ShowBatchAttendance = () => {
               )}
 
               {attendanceDetails.length > 0 && (
-                <Grid item xs={12}>
-                  <Typography align="center" variant="h6">
-                    Attendance Details
-                  </Typography>
-                  <TableContainer
-                    component={"paper"}
-                    sx={{ textAlign: "center" }}
-                  >
-                    <Table
-                      sx={{ textAlign: "center" }}
-                      stickyHeader
-                      aria-label="sticky table"
-                    >
-                      <TableHead>
-                        <TableRow>
-                          <TableCell align="center">
-                            <b>ID</b>
-                          </TableCell>
-                          <TableCell align="center">
-                            <b>Name</b>
-                          </TableCell>
-                          <TableCell align="center">
-                            <b>Total Present</b>
-                          </TableCell>
-                          <TableCell align="center">
-                            <b>Total Absent</b>
-                          </TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {attendanceDetails.map((student) => (
-                          <TableRow key={student.id}>
-                            <TableCell align="center">
-                              <Typography variant="body2">
-                                {student.id}
-                              </Typography>
-                            </TableCell>
-                            <TableCell align="center">
-                              <Typography variant="body2">
-                                {student.name}
-                              </Typography>
-                            </TableCell>
-                            <TableCell align="center">
-                              <Typography variant="body2">
-                                {student.presentCount}
-                              </Typography>
-                            </TableCell>
-                            <TableCell align="center">
-                              <Typography variant="body2">
-                                {student.absentCount}
-                              </Typography>
-                            </TableCell>
+                <>
+                  <Grid item xs={12}>
+                    <Typography align="center" variant="h6">
+                      Attendance Details
+                    </Typography>
+                    <TableContainer component={Paper} sx={{ textAlign: "center" }}>
+                      <Table stickyHeader aria-label="attendance table">
+                        <TableHead>
+                          <TableRow>
+                            <TableCell align="center"><b>ID</b></TableCell>
+                            <TableCell align="center"><b>Name</b></TableCell>
+                            <TableCell align="center"><b>Total Present</b></TableCell>
+                            <TableCell align="center"><b>Total Absent</b></TableCell>
                           </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                </Grid>
+                        </TableHead>
+                        <TableBody>
+                          {attendanceDetails.map((student) => (
+                            <TableRow key={student.id}>
+                              <TableCell align="center"><Typography variant="body2">{student.id}</Typography></TableCell>
+                              <TableCell align="center"><Typography variant="body2">{student.name}</Typography></TableCell>
+                              <TableCell align="center"><Typography variant="body2">{student.presentCount}</Typography></TableCell>
+                              <TableCell align="center"><Typography variant="body2">{student.absentCount}</Typography></TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <Typography align="center" variant="h6" sx={{ mt: 3, mb:2 }}>
+                      Attendance Bar Chart
+                    </Typography>
+                    <ResponsiveContainer width="100%" height={400}>
+                      <BarChart data={attendanceDetails} >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Bar dataKey="presentCount" fill="#1e88e5" />
+                        <Bar dataKey="absentCount" fill="#ff5722" />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </Grid>
+                </>
               )}
             </Grid>
           </Box>

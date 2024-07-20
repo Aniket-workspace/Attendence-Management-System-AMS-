@@ -118,6 +118,19 @@ app.post("/students", async (req, resp) => {
   resp.send(result);
 });
 
+// delete student.................................
+// delete student from student data
+app.delete("/delete-student/:id",  async (req, resp) => {
+  let result = await Student.deleteOne({ id: req.params.id });
+  resp.send(result);
+});
+
+// delete student from users data
+app.delete("/delete-user/:id", async (req, resp) => {
+  let result = await User.deleteOne({ id: req.params.id });
+  resp.send(result);
+});
+
 // Add batch......................................
 // post
 app.post("/batch", async (req, resp) => {

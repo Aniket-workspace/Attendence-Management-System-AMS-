@@ -41,6 +41,13 @@ const ShowStudentAttendance = () => {
   },[])
 
   const handleFetchAttendance = async () => {
+
+    if (!studentId || !date) {
+      setError("Please select both batch and date.");
+      setOpen(true);
+      return;
+    }
+
     try {
       const response = await axios.get(
         `http://localhost:5001/stud-attendance/${studentId}/${date}`
