@@ -118,7 +118,7 @@ const ShowStudentAttendance = () => {
                   <TextField
                     required
                     fullWidth
-                    label="User Id"
+                    label="Student Id"
                     name="id"
                     type="text"
                     value={studentId}

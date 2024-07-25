@@ -125,7 +125,7 @@ function Login() {
               fullWidth
               autoFocus
               type="text"
-              label="UserID"
+              label="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -163,9 +163,9 @@ function Login() {
 
             {/* select roll */}
             <FormControl margin="normal" fullWidth>
-              <InputLabel>Select Roll</InputLabel>
+              <InputLabel>Select Role</InputLabel>
               <Select
-                label="Select Roll"
+                label="Select Role"
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
                 required

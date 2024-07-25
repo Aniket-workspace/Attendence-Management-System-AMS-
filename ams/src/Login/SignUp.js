@@ -112,7 +112,7 @@ function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  label="User Id"
+                  label="Email"
                   autoComplete="email"
                   type="text"
                   value={email}

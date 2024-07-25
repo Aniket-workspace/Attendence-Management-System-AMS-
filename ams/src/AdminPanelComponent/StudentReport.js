@@ -165,7 +165,7 @@ const StudentReport = () => {
                 <TextField
                   required
                   fullWidth
-                  label="User Id"
+                  label="Student Id"
                   name="id"
                   type="number"
                   value={studentId}

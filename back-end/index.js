@@ -79,6 +79,19 @@ const Student = require("./db/Student");
 const Batch = require("./db/Batch");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+require("dotenv").config(); // For loading environment variables
+const nodemailer = require("nodemailer");
+
+// Setup nodemailer transporter
+const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false, // true for 465, false for other ports
+  auth: {
+    user: "gawaianiket499@gmail.com",
+    pass: "llzp fyoa lmts giwl",
+  },
+});
 
 // Initialize Express app
 const app = express();
@@ -86,13 +99,46 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // signup.....................................
+
 app.post("/signup", async (req, resp) => {
-  let user = new User(req.body);
-  let result = await user.save();
-  result = result.toObject();
-  delete result.password;
-  resp.send(result);
+  try {
+    let user = new User(req.body);
+    let result = await user.save();
+    result = result.toObject();
+    delete result.password;
+
+    // Prepare the email options
+    const mailOptions = {
+      from: "gawaianiket499@gmail.com",
+      to: user.email,
+      subject: "Your Attendance Portal Login Details",
+      text: `Hello ${user.name},\n\nWelcome to the Student Attendance Portal. Below are your login credentials:\n\nEmail: ${user.email}\nPassword: ${req.body.password}\nBatch: ${req.body.batch}\nStudent ID: ${req.body.id}\n\nIt's crucial to keep this information confidential. Do not share your credentials with anyone. They are for your personal use only.\n\nIf you have any questions or concerns, please don't hesitate to reach out.\n\nBest regards,\nAdmin Department,\nRADIANT IT SERVICES PVT. LTD.`,
+    };
+
+    // Send the email
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error("Error sending email:", error);
+      } else {
+        console.log("Email sent:", info.response);
+      }
+    });
+
+    // Send the response to the client
+    resp.status(201).send(result);
+  } catch (error) {
+    console.error("Error during signup:", error);
+    resp.status(500).send({ status: "error", message: error.message });
+  }
 });
+
+// app.post("/signup", async (req, resp) => {
+//   let user = new User(req.body);
+//   let result = await user.save();
+//   result = result.toObject();
+//   delete result.password;
+//   resp.send(result);
+// });
 
 // login........................................
 app.post("/login", async (req, resp) => {
@@ -120,7 +166,7 @@ app.post("/students", async (req, resp) => {
 
 // delete student.................................
 // delete student from student data
-app.delete("/delete-student/:id",  async (req, resp) => {
+app.delete("/delete-student/:id", async (req, resp) => {
   let result = await Student.deleteOne({ id: req.params.id });
   resp.send(result);
 });

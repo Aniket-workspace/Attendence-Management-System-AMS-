@@ -70,7 +70,7 @@ const UpdateNewStudentData = () => {
     localStore();
     batches();
     student();
-  }, );
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -295,7 +295,7 @@ const UpdateNewStudentData = () => {
                 <TextField
                   required
                   fullWidth
-                  label="User Id"
+                  label="Student Id"
                   name="id"
                   type="number"
                   value={studentId}
