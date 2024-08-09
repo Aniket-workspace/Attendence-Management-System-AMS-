@@ -1,6 +1,7 @@
 import React from 'react'
 import AttendanceComponent from './AttendanceComponent';
 import UpdateNewStudentData from './UpdateNewStudentData';
+import UpdateBatchStudentData from './UpdateBatchStudentData';   //Shivanjali Chnages
 import StudentDataTable from './StudentDataTable';
 
 
@@ -16,6 +17,7 @@ function AdminPanelIndex() {
       <div>AdminPanel_index</div> <hr/>
       <AttendanceComponent></AttendanceComponent> <hr/>
       <UpdateNewStudentData></UpdateNewStudentData> <hr/>
+      <UpdateBatchStudentData></UpdateBatchStudentData><hr/>   {/*Shivanjali Changes */}
       <StudentDataTable></StudentDataTable>
     </div>
   )

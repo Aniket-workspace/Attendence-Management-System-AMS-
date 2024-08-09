@@ -6,6 +6,7 @@ import AdminPanelIndex from '../AdminPanelComponent/AdminPanelIndex';
 import StudentPanelIndex from '../StudentPanelComponent/StudentPanelIndex';
 import AttendanceComponent from '../AdminPanelComponent/AttendanceComponent';
 import UpdateNewStudentData from '../AdminPanelComponent/UpdateNewStudentData';
+import UpdateBatchStudentData from '../AdminPanelComponent/UpdateBatchStudentData';  //Shivanjali Changes
 import StudentDataTable from '../AdminPanelComponent/StudentDataTable';
 import ShowStudentAttendance from '../AdminPanelComponent/ShowStudentAttendance';
 import ShowBatchAttendance from '../AdminPanelComponent/ShowBatchAttendance';
@@ -23,6 +24,7 @@ function LoginIndex() {
         <Route path="/student" element={<StudentPanelIndex />} />
         <Route path="/AttendanceComponent" element={<AttendanceComponent/>}/>
         <Route path="/UpdateNewStudentData" element={<UpdateNewStudentData/>}/>
+         <Route path="/UpdateBatchStudentData" element={<UpdateBatchStudentData/>}/>  {/*Shivanjali Chanages */}
         <Route path="/StudentDataTable" element={<StudentDataTable/>}/>
         <Route path="/ShowStudentAttendance" element={<ShowStudentAttendance/>}/>
         <Route path="/ShowBatchAttendance" element={<ShowBatchAttendance/>}/>
