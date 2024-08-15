@@ -277,6 +277,22 @@ const AdminPanelIndex = () => {
               <Typography variant="body2">Add Batch Student</Typography>
             </ListItemButton>
 
+              {/* Update Batch Student */}
+         <ListItemButton
+          sx={{
+            backgroundColor: "white",
+            borderRadius: "30px",
+            marginBottom: "10px",
+            width: "180px",
+          }}
+          onClick={() => setbox(<UpdateBatchStudentData/>)}
+        >
+          <Avatar sx={{ marginRight: "15px", bgcolor: "primary.main" }}>
+            <PersonAddIcon />
+          </Avatar>
+          <Typography variant="body2">Update Batch Student</Typography>
+        </ListItemButton>
+
             {/* Student Attendence */}
             <ListItemButton
               sx={{

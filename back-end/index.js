@@ -837,5 +837,53 @@ app.put("/update-student/:id", async (req, res) => {
   }
 });
 
+// Update batch information
+app.put("/update-batch/:batchId", async (req, res) => {
+  try {
+    const { batchId } = req.params;
+    const { newBatchId, trainerName, batchName } = req.body;
+
+    // Find the batch by the current batch ID
+    let batch = await Batch.findOneAndUpdate(
+      { batchId },
+      { batchId: newBatchId, trainerName, batchName },
+      { new: true }
+    );
+
+    if (!batch) {
+      return res.status(404).json({ message: "Batch not found" });
+    }
+
+    res.json({
+      message: "Batch updated successfully!",
+      updatedBatch: batch,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Update the batch in Student collection as well if the batch name is changed
+app.put("/update-student-batch/:oldBatchName", async (req, res) => {
+  try {
+    const { oldBatchName } = req.params;
+    const { newBatchName } = req.body;
+
+    let students = await Student.updateMany(
+      { batch: oldBatchName },
+      { batch: newBatchName }
+    );
+
+    res.json({
+      message: `Students in batch ${oldBatchName} have been moved to ${newBatchName}`,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+
+
+
 app.listen(5001);
 

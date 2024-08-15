@@ -543,11 +543,11 @@ const UpdateNewStudentData = () => {
   const [trainerName, setTrainerName] = useState("");
   const [batchId, setBatchId] = useState("");
   const [batchName, setBatchName] = useState("");
-  const [editStudentId, setEditStudentId] = useState("");
-  const [editStudentName, setEditStudentName] = useState("");
-  const [editStudentEmail, setEditStudentEmail] = useState("");
-  const [editStudentDOB, setEditStudentDOB] = useState("");
-  const [editStudentBatch, setEditStudentBatch] = useState("");
+  // const [editStudentId, setEditStudentId] = useState("");
+  // const [editStudentName, setEditStudentName] = useState("");
+  // const [editStudentEmail, setEditStudentEmail] = useState("");
+  // const [editStudentDOB, setEditStudentDOB] = useState("");
+  // const [editStudentBatch, setEditStudentBatch] = useState("");
 
   const navigate = useNavigate();
 
@@ -668,35 +668,35 @@ const UpdateNewStudentData = () => {
     }
   };
 
-  const updateStudent = async () => {
-    if (!editStudentId || !editStudentName || !editStudentEmail || !editStudentDOB || !editStudentBatch) {
-      alert("Please fill in all fields.");
-      return;
-    }
+  // const updateStudent = async () => {
+  //   if (!editStudentId || !editStudentName || !editStudentEmail || !editStudentDOB || !editStudentBatch) {
+  //     alert("Please fill in all fields.");
+  //     return;
+  //   }
 
-    const updatedStudent = {
-      name: editStudentName,
-      email: editStudentEmail,
-      dob: editStudentDOB,
-      batch: editStudentBatch,
-    };
+  //   const updatedStudent = {
+  //     name: editStudentName,
+  //     email: editStudentEmail,
+  //     dob: editStudentDOB,
+  //     batch: editStudentBatch,
+  //   };
 
-    try {
-      let result = await fetch(`http://localhost:5001/update-student/${editStudentId}`, {
-        method: "PUT",
-        body: JSON.stringify(updatedStudent),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      result = await result.json();
-      console.log(result);
-      alert("Student updated successfully!");
-    } catch (error) {
-      console.error("There was an error updating the student!", error);
-      alert("There was an error updating the student. Please try again.");
-    }
-  };
+  //   try {
+  //     let result = await fetch(`http://localhost:5001/update-student/${editStudentId}`, {
+  //       method: "PUT",
+  //       body: JSON.stringify(updatedStudent),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     result = await result.json();
+  //     console.log(result);
+  //     alert("Student updated successfully!");
+  //   } catch (error) {
+  //     console.error("There was an error updating the student!", error);
+  //     alert("There was an error updating the student. Please try again.");
+  //   }
+  // };
 
   return (
     <Container maxWidth="lg" sx={{ mt: 3 }}>
@@ -713,7 +713,7 @@ const UpdateNewStudentData = () => {
           overflow: "auto",
         }}
       >
-        <Grid item md={4} xs={12} sx={{ paddingRight: { xs: 0, md: "10px" } }}>
+        <Grid item md={6} xs={12} sx={{ paddingRight: { xs: 0, md: "10px" } }}>
           <Box display={"flex"} justifyContent={"center"} flexDirection={"column"}>
             <Avatar sx={{ bgcolor: "primary.main", marginBottom: "15px", margin: "auto" }}>
               <QueueIcon />
@@ -767,7 +767,7 @@ const UpdateNewStudentData = () => {
           </Box>
         </Grid>
 
-        <Grid item md={4} xs={12} sx={{ paddingLeft: { xs: 0, md: "10px" }, marginTop: { xs: "40px", md: 0 } }}>
+        <Grid item md={6} xs={12} sx={{ paddingLeft: { xs: 0, md: "10px" }, marginTop: { xs: "40px", md: 0 } }}>
           <Box display={"flex"} justifyContent={"center"} flexDirection={"column"}>
             <Avatar sx={{ bgcolor: "primary.main", marginBottom: "15px", margin: "auto" }}>
               <PersonAddIcon />
@@ -849,87 +849,7 @@ const UpdateNewStudentData = () => {
         </Grid>
         
 
-        <Grid item md={4} xs={12} sx={{ paddingLeft: { xs: 0, md: "10px" }, marginTop: { xs: "40px", md: 0 } }}>
-          <Box display={"flex"} justifyContent={"center"} flexDirection={"column"}>
-            <Avatar sx={{ bgcolor: "primary.main", marginBottom: "15px", margin: "auto" }}>
-              {/* <QueueIcon /> */}
-              <FaEdit />
-            </Avatar>
-            <Typography variant="h6" textAlign="center" mt={1}>
-             Update Batch & Student
-            </Typography>
-          </Box>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3, width: "100%" }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  required
-                  fullWidth
-                  label="Student Id"
-                  name="id"
-                  type="number"
-                  value={editStudentId}
-                  onChange={(e) => setEditStudentId(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  required
-                  fullWidth
-                  label="Name"
-                  name="name"
-                  type="text"
-                  value={editStudentName}
-                  onChange={(e) => setEditStudentName(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  required
-                  fullWidth
-                  label="Email"
-                  name="email"
-                  type="email"
-                  value={editStudentEmail}
-                  onChange={(e) => setEditStudentEmail(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  required
-                  fullWidth
-                  label="DOB"
-                  name="dob"
-                  type="date"
-                  value={editStudentDOB}
-                  onChange={(e) => setEditStudentDOB(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControl fullWidth>
-                  <InputLabel>Select Batch</InputLabel>
-                  <Select
-                    label="Select Batch"
-                    value={editStudentBatch}
-                    onChange={(e) => setEditStudentBatch(e.target.value)}
-                    required
-                  >
-                    {batches.map((item) => (
-                      <MenuItem key={item.batch} value={item.batch}>
-                        {item.batch}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item xs={12}>
-                <Button type="submit" onClick={updateStudent} fullWidth variant="contained">
-                  Update Student
-                </Button>
-              </Grid>
-            </Grid>
-          </Box>
-        </Grid>
+        
       </Grid>
     </Container>
   );
