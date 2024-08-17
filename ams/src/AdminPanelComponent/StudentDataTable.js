@@ -80,6 +80,8 @@ const StudentDataTable = () => {
     result = await result.json();
     console.log(result);
     setbatchModalOpen(false);
+    alert("Data Successfully updated")      
+
     // navigate("/admin");
   };
 
@@ -127,7 +129,6 @@ const StudentDataTable = () => {
       );
       result = await result.json();
       console.log(result);
-      setStudentModalOpen(false);
     } catch (error) {
       console.log(error);
     }
@@ -150,10 +151,13 @@ const StudentDataTable = () => {
       );
       result = await result.json();
       console.log(result);
-      setStudentModalOpen(false);
+      alert("Data Successfully updated")      
     } catch (error) {
       console.log(error);
     }
+
+    setStudentModalOpen(false);
+    
   };
 
   useEffect(() => {
@@ -502,6 +506,7 @@ const StudentDataTable = () => {
                 type="number"
                 value={studentId}
                 onChange={(e) => setStudentId(e.target.value)}
+                disabled
               />
             </Grid>
 
@@ -552,7 +557,7 @@ const StudentDataTable = () => {
                   value={studentBatch}
                   onChange={(e) => setStudentBatch(e.target.value)}
                 /> */}
-              <FormControl fullWidth>
+              <FormControl fullWidth disabled>
                 <InputLabel>Select Batch</InputLabel>
                 <Select
                   label="Select Batch"
