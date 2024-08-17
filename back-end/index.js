@@ -164,6 +164,56 @@ app.post("/students", async (req, resp) => {
   resp.send(result);
 });
 
+// update student..................................................
+app.get("/update-student/:id", async (req, resp) => {
+  let result = await User.findOne({ id: req.params.id });
+  if (result) {
+    resp.send(result);
+  } else {
+    resp.send({ result: "No product found!" });
+  }
+});
+
+app.put("/update-user-student/:id", async (req, resp) => {
+  try {
+    let result = await User.updateOne(
+      { id: req.params.id },
+      { $set: req.body }
+    );
+
+    // Prepare the email options
+    const mailOptions = {
+      from: "gawaianiket499@gmail.com",
+      to: req.body.email,
+      subject: "Your Attendance Portal Login Details",
+      text: `Hello ${req.body.name},\n\nWelcome to the Student Attendance Portal. Below are your login credentials:\n\nEmail: ${req.body.email}\nPassword: ${req.body.password}\nBatch: ${req.body.batch}\nStudent ID: ${req.body.id}\n\nIt's crucial to keep this information confidential. Do not share your credentials with anyone. They are for your personal use only.\n\nIf you have any questions or concerns, please don't hesitate to reach out.\n\nBest regards,\nAdmin Department,\nRADIANT IT SERVICES PVT. LTD.`,
+    };
+
+    // Send the email
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error("Error sending email:", error);
+        return resp.status(500).send({ error: "Failed to send email" });
+      } else {
+        console.log("Email sent:", info.response);
+        return resp.status(201).send(result);
+      }
+    });
+
+  } catch (err) {
+    console.error(err);
+    resp.status(500).send({ error: "Failed to update user" });
+  }
+});
+
+app.put("/update-student/:id",  async (req, resp) => {
+  let result = await Student.updateOne(
+    { id: req.params.id },
+    { $set: req.body }
+  );
+  resp.send(result);
+});
+
 // delete student.................................
 // delete student from student data
 app.delete("/delete-student/:id", async (req, resp) => {
@@ -189,6 +239,25 @@ app.post("/batch", async (req, resp) => {
 app.get("/batch", async (req, resp) => {
   let batch = await Batch.find();
   resp.send(batch);
+});
+
+
+// update batch..................................................
+app.get("/update-batch/:id", async (req, resp) => {
+  let result = await Batch.findOne({ _id: req.params.id });
+  if (result) {
+    resp.send(result);
+  } else {
+    resp.send({ result: "No product found!" });
+  }
+});
+
+app.put("/update-batch/:id",  async (req, resp) => {
+  let result = await Batch.updateOne(
+    { _id: req.params.id },
+    { $set: req.body }
+  );
+  resp.send(result);
 });
 
 // mark attendence..............................

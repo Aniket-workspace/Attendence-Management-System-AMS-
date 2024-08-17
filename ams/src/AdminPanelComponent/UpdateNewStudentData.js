@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import QueueIcon from "@mui/icons-material/Queue";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import {
   Avatar,
   Box,
@@ -31,8 +31,9 @@ const UpdateNewStudentData = () => {
   const [trainerName, setTrainerName] = useState("");
   const [batchId, setBatchId] = useState("");
   const [batchName, setBatchName] = useState("");
+  const [batchTime, setBatchTime] = useState("12:00");
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     // for extracting trainer name
@@ -78,14 +79,15 @@ const UpdateNewStudentData = () => {
 
   // add batch function
   const addBatch = async () => {
-    if (!batchId || !trainerName || !batchName) {
-      alert("Please enter batch.");
+    if (!batchId || !trainerName || !batchName || !batchTime) {
+      alert("Please enter batch and time.");
       return;
     }
     const batchData = {
       id: batchId,
       name: trainerName,
       batch: batchName,
+      time: batchTime,
     };
     let result = await fetch("http://localhost:5001/batch", {
       method: "POST",
@@ -123,7 +125,6 @@ const UpdateNewStudentData = () => {
       console.log(result);
 
       alert("Student added successfully!");
-
     } catch (error) {
       console.error("There was an error adding the student!", error);
       alert("There was an error adding the student. Please try again.");
@@ -141,6 +142,7 @@ const UpdateNewStudentData = () => {
         role: "student",
         id: parseInt(studentId),
         batch: studentBatch,
+        dob: dob
       };
       let result = await fetch("http://localhost:5001/signup", {
         method: "post",
@@ -180,6 +182,8 @@ const UpdateNewStudentData = () => {
           overflow: "auto",
         }}
       >
+
+        {/* add batch */}
         <Grid item md={6} xs={12} sx={{ paddingRight: { xs: 0, md: "10px" } }}>
           <Box
             display={"flex"}
@@ -213,12 +217,11 @@ const UpdateNewStudentData = () => {
                   name="id"
                   type="number"
                   value={batchId}
-                  onChange={(e) => setBatchId(batchId)}
-                  disabled
+                  onChange={(e) => setBatchId(e.target.value)}
                 />
               </Grid>
 
-              <Grid item xs={12}>
+              <Grid item xs={6}>
                 <TextField
                   required
                   fullWidth
@@ -227,6 +230,18 @@ const UpdateNewStudentData = () => {
                   type="text"
                   value={trainerName}
                   onChange={(e) => setTrainerName(trainerName)}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  required
+                  fullWidth
+                  label="Time"
+                  name="date"
+                  type="time"
+                  ampm={true}
+                  value={batchTime}
+                  onChange={(e) => setBatchTime(e.target.value)}
                 />
               </Grid>
 
@@ -335,7 +350,6 @@ const UpdateNewStudentData = () => {
                   name="dob"
                   type="date"
                   value={dob}
-                  // value={studentId}
                   onChange={(e) => setDOB(e.target.value)}
                 />
               </Grid>
@@ -359,7 +373,7 @@ const UpdateNewStudentData = () => {
                     required
                   >
                     {batches.map((item) => (
-                      <MenuItem value={item.batch}>{item.batch}</MenuItem>
+                      <MenuItem value={item.batch}>{item.time} {item.batch}</MenuItem>
                     ))}
                   </Select>
                 </FormControl>

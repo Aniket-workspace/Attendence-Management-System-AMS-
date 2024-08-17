@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
     password:String,
     role:String,
     id:String,
-    batch:String
+    batch:String,
+    dob:String
 });
 module.exports = mongoose.model("users", userSchema);
