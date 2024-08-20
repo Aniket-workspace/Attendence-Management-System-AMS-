@@ -122,7 +122,7 @@ const ShowBatchAttendance = () => {
                     required
                   >
                     {batches.map((item) => (
-                      <MenuItem key={item.batch} value={item.batch}>{item.batch}</MenuItem>
+                      <MenuItem key={item.batch} value={item.batch}>{item.time} {item.batch}</MenuItem>
                     ))}
                   </Select>
                 </FormControl>

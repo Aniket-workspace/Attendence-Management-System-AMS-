@@ -155,7 +155,7 @@ const StudentReport = () => {
                     required
                   >
                     {batches.map((item) => (
-                      <MenuItem value={item.batch}>{item.batch}</MenuItem>
+                      <MenuItem value={item.batch}>{item.time} {item.batch}</MenuItem>
                     ))}
                   </Select>
                 </FormControl>

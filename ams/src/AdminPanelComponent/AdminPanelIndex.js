@@ -91,7 +91,7 @@ const AdminPanelIndex = () => {
           <Avatar sx={{ marginRight: "15px", bgcolor: "primary.main" }}>
             <PersonAddIcon />
           </Avatar>
-          <Typography variant="body2">Add Batch Student</Typography>
+          <Typography variant="body2">Add Batch & Student</Typography>
         </ListItemButton>
 
         {/* Shivanjali Changes */}
@@ -160,7 +160,7 @@ const AdminPanelIndex = () => {
           <Typography variant="body2">Monthly Attendence</Typography>
         </ListItemButton>
 
-        {/* All Student Data */}
+        {/* All Student & Batch Data */}
         <ListItemButton
           sx={{
             backgroundColor: "white",
@@ -173,7 +173,7 @@ const AdminPanelIndex = () => {
           <Avatar sx={{ marginRight: "15px", bgcolor: "primary.main" }}>
             <TableChartIcon />
           </Avatar>
-          <Typography variant="body2">All Student Data</Typography>
+          <Typography variant="body2">All Student & Batch Data</Typography>
         </ListItemButton>
 
         {/* LogOut */}
@@ -262,7 +262,7 @@ const AdminPanelIndex = () => {
               <Typography variant="body2">Mark Attendence</Typography>
             </ListItemButton>
 
-            {/* Add Batch Student */}
+            {/* Add Batch & Student */}
             <ListItemButton
               sx={{
                 backgroundColor: "white",
@@ -274,7 +274,7 @@ const AdminPanelIndex = () => {
               <Avatar sx={{ marginRight: "15px", bgcolor: "primary.main" }}>
                 <PersonAddIcon />
               </Avatar>
-              <Typography variant="body2">Add Batch Student</Typography>
+              <Typography variant="body2">Add Batch & Student</Typography>
             </ListItemButton>
 
               {/* Update Batch Student */}
@@ -340,7 +340,7 @@ const AdminPanelIndex = () => {
               </Typography>
             </ListItemButton>
 
-            {/* All Student Data< */}
+            {/* All Student & Batch Data< */}
             <ListItemButton
               sx={{
                 backgroundColor: "white",
@@ -352,7 +352,7 @@ const AdminPanelIndex = () => {
               <Avatar sx={{ marginRight: "15px", bgcolor: "primary.main" }}>
                 <TableChartIcon />
               </Avatar>
-              <Typography variant="body2">All Student Data</Typography>
+              <Typography variant="body2">All Student & Batch Data</Typography>
             </ListItemButton>
 
             {/* LogOut */}
