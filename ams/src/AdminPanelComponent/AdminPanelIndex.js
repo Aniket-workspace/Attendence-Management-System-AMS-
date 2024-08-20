@@ -21,7 +21,6 @@ import StudentReport from "./StudentReport";
 import MenuIcon from "@mui/icons-material/Menu";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import UpdateNewStudentData from "./UpdateNewStudentData";
-import UpdateBatchStudentData from "./UpdateBatchStudentData"; //Shivanjali Changes
 import ShowStudentAttendance from "./ShowStudentAttendance";
 import SchoolIcon from "@mui/icons-material/School";
 import PieChartIcon from "@mui/icons-material/PieChart";
@@ -94,23 +93,7 @@ const AdminPanelIndex = () => {
           <Typography variant="body2">Add Batch & Student</Typography>
         </ListItemButton>
 
-        {/* Shivanjali Changes */}
-
-         {/* Update Batch Student */}
-         {/* <ListItemButton
-          sx={{
-            backgroundColor: "white",
-            borderRadius: "30px",
-            marginBottom: "10px",
-            width: "180px",
-          }}
-          onClick={() => setbox(<UpdateBatchStudentData/>)}
-        >
-          <Avatar sx={{ marginRight: "15px", bgcolor: "primary.main" }}>
-            <PersonAddIcon />
-          </Avatar>
-          <Typography variant="body2">Update Batch Student</Typography>
-        </ListItemButton> */}
+        
 
         {/* Student Attendence */}
         <ListItemButton
@@ -277,22 +260,7 @@ const AdminPanelIndex = () => {
               <Typography variant="body2">Add Batch & Student</Typography>
             </ListItemButton>
 
-              {/* Update Batch Student */}
-         {/* <ListItemButton
-          sx={{
-            backgroundColor: "white",
-            borderRadius: "30px",
-            marginBottom: "10px",
-            width: "180px",
-          }}
-          onClick={() => setbox(<UpdateBatchStudentData/>)}
-        >
-          <Avatar sx={{ marginRight: "15px", bgcolor: "primary.main" }}>
-            <PersonAddIcon />
-          </Avatar>
-          <Typography variant="body2">Update Batch Student</Typography>
-        </ListItemButton> */}
-
+              
             {/* Student Attendence */}
             <ListItemButton
               sx={{

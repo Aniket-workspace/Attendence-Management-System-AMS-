@@ -6,7 +6,6 @@ import AdminPanelIndex from '../AdminPanelComponent/AdminPanelIndex';
 import StudentPanelIndex from '../StudentPanelComponent/StudentPanelIndex';
 import AttendanceComponent from '../AdminPanelComponent/AttendanceComponent';
 import UpdateNewStudentData from '../AdminPanelComponent/UpdateNewStudentData';
-import UpdateBatchStudentData from '../AdminPanelComponent/UpdateBatchStudentData';  //Shivanjali Changes
 import StudentDataTable from '../AdminPanelComponent/StudentDataTable';
 import ShowStudentAttendance from '../AdminPanelComponent/ShowStudentAttendance';
 import ShowBatchAttendance from '../AdminPanelComponent/ShowBatchAttendance';
