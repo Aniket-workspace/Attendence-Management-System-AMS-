@@ -24,7 +24,7 @@ function LoginIndex() {
         <Route path="/student" element={<StudentPanelIndex />} />
         <Route path="/AttendanceComponent" element={<AttendanceComponent/>}/>
         <Route path="/UpdateNewStudentData" element={<UpdateNewStudentData/>}/>
-         <Route path="/UpdateBatchStudentData" element={<UpdateBatchStudentData/>}/>  {/*Shivanjali Chanages */}
+         {/* <Route path="/UpdateBatchStudentData" element={<UpdateBatchStudentData/>}/>  Shivanjali Chanages */}
         <Route path="/StudentDataTable" element={<StudentDataTable/>}/>
         <Route path="/ShowStudentAttendance" element={<ShowStudentAttendance/>}/>
         <Route path="/ShowBatchAttendance" element={<ShowBatchAttendance/>}/>

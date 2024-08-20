@@ -97,7 +97,7 @@ const AdminPanelIndex = () => {
         {/* Shivanjali Changes */}
 
          {/* Update Batch Student */}
-         <ListItemButton
+         {/* <ListItemButton
           sx={{
             backgroundColor: "white",
             borderRadius: "30px",
@@ -110,7 +110,7 @@ const AdminPanelIndex = () => {
             <PersonAddIcon />
           </Avatar>
           <Typography variant="body2">Update Batch Student</Typography>
-        </ListItemButton>
+        </ListItemButton> */}
 
         {/* Student Attendence */}
         <ListItemButton
@@ -278,7 +278,7 @@ const AdminPanelIndex = () => {
             </ListItemButton>
 
               {/* Update Batch Student */}
-         <ListItemButton
+         {/* <ListItemButton
           sx={{
             backgroundColor: "white",
             borderRadius: "30px",
@@ -291,7 +291,7 @@ const AdminPanelIndex = () => {
             <PersonAddIcon />
           </Avatar>
           <Typography variant="body2">Update Batch Student</Typography>
-        </ListItemButton>
+        </ListItemButton> */}
 
             {/* Student Attendence */}
             <ListItemButton
