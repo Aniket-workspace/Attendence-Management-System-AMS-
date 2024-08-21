@@ -608,7 +608,7 @@ app.post("/batch", async (req, resp) => {
   resp.send(result);
 });
 
-// get
+// get  
 app.get("/batch", async (req, resp) => {
   let batch = await Batch.find();
   resp.send(batch);
