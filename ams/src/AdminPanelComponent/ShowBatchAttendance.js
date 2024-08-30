@@ -35,6 +35,8 @@ const ShowBatchAttendance = () => {
   const [open, setOpen] = useState(false);
   const [batches, setBatches] = useState([]);
   const componentPDF = useRef();
+  const [selectedTrainer, setSelectedTrainer] = useState("");
+  const auth = localStorage.getItem("user");
 
   useEffect(() => {
     const fetchBatches = async () => {
@@ -42,6 +44,7 @@ const ShowBatchAttendance = () => {
         const batchData = await fetch("http://localhost:5001/batch");
         const data = await batchData.json();
         setBatches(data);
+        setSelectedTrainer(JSON.parse(auth).name)
       } catch (error) {
         console.error("Error fetching batches:", error);
       }
@@ -80,6 +83,10 @@ const ShowBatchAttendance = () => {
     content: () => componentPDF.current,
     documentTitle: "attendance-report",
   });
+
+  const filteredBatches = selectedTrainer
+  ? batches.filter((batch) => batch.name === selectedTrainer)
+  : batches;
 
   return (
     <Container maxWidth="lg" sx={{ mt: 3 }}>
@@ -121,7 +128,7 @@ const ShowBatchAttendance = () => {
                     onChange={(e) => setBatch(e.target.value)}
                     required
                   >
-                    {batches.map((item) => (
+                    {filteredBatches.map((item) => (
                       <MenuItem key={item.batch} value={item.batch}>{item.time} {item.batch}</MenuItem>
                     ))}
                   </Select>

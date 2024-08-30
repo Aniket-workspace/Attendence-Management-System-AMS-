@@ -27,8 +27,9 @@ import {
 } from "@mui/material";
 import { PieChart } from "@mui/x-charts";
 import PieChartIcon from "@mui/icons-material/PieChart";
-import { pieArcLabelClasses } from "@mui/x-charts"; 
+import { pieArcLabelClasses } from "@mui/x-charts";
 import { useReactToPrint } from "react-to-print";
+import { useWindowSize } from "../CustomHooks/useWindowSize";
 
 const StudentReport = () => {
   const [batch, setBatch] = useState("");
@@ -44,7 +45,14 @@ const StudentReport = () => {
   const [open, setOpen] = useState(false);
   const [batches, setBatches] = useState([]);
 
+  const [chartWidth, setChartWidth] = useState(500);
+  const [chartHeight, setChartHeight] = useState(270);
+  const [width, height] = useWindowSize();
+
   const componentPDF = useRef(null);
+
+  const [selectedTrainer, setSelectedTrainer] = useState("");
+  const auth = localStorage.getItem("user");
 
   useEffect(() => {
     const batches = async () => {
@@ -52,6 +60,7 @@ const StudentReport = () => {
         const batchData = await fetch("http://localhost:5001/batch");
         const data = await batchData.json();
         setBatches(data);
+        setSelectedTrainer(JSON.parse(auth).name);
       } catch (error) {
         console.error("Error fetching students:", error);
       }
@@ -115,6 +124,21 @@ const StudentReport = () => {
     onAfterPrint: () => alert("Data saved in PDF"),
   });
 
+  const filteredBatches = selectedTrainer
+    ? batches.filter((batch) => batch.name === selectedTrainer)
+    : batches;
+
+  useEffect(() => {
+    if (width < 500) {
+      setChartWidth(300);
+      setChartHeight(270);
+    } else {
+      setChartWidth(500);
+      setChartHeight(270);
+    }
+  });
+
+
   return (
     <Container component={"div"} maxWidth="lg" sx={{ mt: 3 }}>
       <div ref={componentPDF}>
@@ -128,7 +152,6 @@ const StudentReport = () => {
             padding: "25px",
             borderRadius: "15px",
             minHeight: "450px",
-
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "primary.main", marginBottom: "15px" }}>
@@ -154,8 +177,10 @@ const StudentReport = () => {
                     onChange={(e) => setBatch(e.target.value)}
                     required
                   >
-                    {batches.map((item) => (
-                      <MenuItem value={item.batch}>{item.time} {item.batch}</MenuItem>
+                    {filteredBatches.map((item) => (
+                      <MenuItem value={item.batch}>
+                        {item.time} {item.batch}
+                      </MenuItem>
                     ))}
                   </Select>
                 </FormControl>
@@ -314,6 +339,7 @@ const StudentReport = () => {
                                 label: "Absent",
                               },
                             ],
+                            
                             arcLabel: (item) => `${item.label} (${item.value})`,
                             arcLabelMinAngle: 45,
                             highlightScope: {
@@ -333,8 +359,9 @@ const StudentReport = () => {
                             fontWeight: "bold",
                           },
                         }}
-                        width={500}
-                        height={270}
+                        width={chartWidth}
+                        height={chartHeight}
+                        
                       />
                     </Grid>
                   </Grid>

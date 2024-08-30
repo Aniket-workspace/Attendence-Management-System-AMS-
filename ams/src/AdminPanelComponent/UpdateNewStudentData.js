@@ -543,6 +543,8 @@ const UpdateNewStudentData = () => {
   const [batchId, setBatchId] = useState("");
   const [batchName, setBatchName] = useState("");
   const [batchTime, setBatchTime] = useState("12:00");
+  const [selectedTrainer, setSelectedTrainer] = useState("");
+  const auth = localStorage.getItem("user");
 
   const navigate = useNavigate();
 
@@ -559,6 +561,7 @@ const UpdateNewStudentData = () => {
         const batchData = await fetch("http://localhost:5001/batch");
         const data = await batchData.json();
         setBatches(data);
+        setSelectedTrainer(JSON.parse(auth).name)
         const length = data.length;
         setBatchId(length + 1);
       } catch (error) {
@@ -665,6 +668,9 @@ const UpdateNewStudentData = () => {
     }
   };
 
+  const filteredBatches = selectedTrainer
+  ? batches.filter((batch) => batch.name === selectedTrainer)
+  : batches;
   // const updateStudent = async () => {
   //   if (!editStudentId || !editStudentName || !editStudentEmail || !editStudentDOB || !editStudentBatch) {
   //     alert("Please fill in all fields.");
@@ -779,6 +785,7 @@ const UpdateNewStudentData = () => {
           </Box>
         </Grid>
 
+        {/* add student */}
         <Grid item md={6} xs={12} sx={{ paddingLeft: { xs: 0, md: "10px" }, marginTop: { xs: "40px", md: 0 } }}>
           <Box display={"flex"} justifyContent={"center"} flexDirection={"column"}>
             <Avatar sx={{ bgcolor: "primary.main", marginBottom: "15px", margin: "auto" }}>
@@ -844,7 +851,7 @@ const UpdateNewStudentData = () => {
                     onChange={(e) => setStudentBatch(e.target.value)}
                     required
                   >
-                    {batches.map((item) => (
+                    {filteredBatches.map((item) => (
                       <MenuItem value={item.batch}>{item.time} {item.batch}</MenuItem>
                     ))}
                   </Select>

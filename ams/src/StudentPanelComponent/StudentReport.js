@@ -29,6 +29,7 @@ import { PieChart } from "@mui/x-charts";
 import PieChartIcon from "@mui/icons-material/PieChart";
 import { pieArcLabelClasses } from "@mui/x-charts"; // Correct import
 import { useReactToPrint } from "react-to-print";
+import { useWindowSize } from "../CustomHooks/useWindowSize";
 
 const StudentReport = () => {
   const [batch, setBatch] = useState("");
@@ -44,6 +45,11 @@ const StudentReport = () => {
   const [open, setOpen] = useState(false);
   const [batches, setBatches] = useState([]);
   const [auth, setAuth] = useState([]);
+
+
+  const [chartWidth, setChartWidth] = useState(500);
+  const [chartHeight, setChartHeight] = useState(270);
+  const [width, height] = useWindowSize();
 
   const componentPDF = useRef(null);
 
@@ -120,6 +126,15 @@ const StudentReport = () => {
     content: () => componentPDF.current,
     documentTitle: "StudentDataTable",
     onAfterPrint: () => alert("Data saved in PDF"),
+  });
+
+
+  useEffect(() => {
+    if (width < 500) {
+      setChartWidth(300);
+    } else {
+      setChartWidth(500);
+    }
   });
 
   return (
@@ -345,8 +360,8 @@ const StudentReport = () => {
                             fontWeight: "bold",
                           },
                         }}
-                        width={500}
-                        height={270}
+                        width={chartWidth}
+                        height={chartHeight}
                       />
                     </Grid>
                   </Grid>
